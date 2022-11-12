@@ -1,0 +1,33 @@
+<!--index.html-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- CSP 默认情况下js等静态资源等都是本地的 允许 加入这个就不会有安全警告了 具体见下面连接 -->
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <title>Hello World!</title>
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+    We are using Node.js <span id="node-version"></span>,
+    Chromium <span id="chrome-version"></span>,
+    and Electron <span id="electron-version"></span>.
+
+    <hr/>
+    
+    Title: <input id="title"/>
+    <button id="btn" type="button">Set</button>
+
+    <br>
+    <hr>
+
+    <button type="button" id="btn2">Open a File</button>
+    File path: <strong id="filePath"></strong>
+
+    <!-- 注意 隔离下 是不能在js（渲染页面）里面调用（main）nodejs的  -->
+    <script  src="./renderer.js"></script>
+    
+  </body>
+</html>

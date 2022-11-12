@@ -1,0 +1,17 @@
+{
+  "name": "my-electron-app",
+  "version": "1.0.0",
+  "description": "first electron app",
+  "main": "main.js",
+  
+  "scripts": {
+    "start": "nodemon --exec electron ." 
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^21.2.2"
+  },
+  "dependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
