@@ -1,0 +1,16 @@
+{
+  "name": "system_module",
+  "version": "1.0.0",
+  "main": "main.js",
+  "license": "MIT",
+
+  "scripts": {
+    "start": "nodemon --exec electron ." 
+  },
+
+
+  "dependencies": {
+    "electron": "^21.2.3",
+    "nodemon": "^2.0.20"
+  }
+}

@@ -8,17 +8,17 @@
 并有权访问两个 渲染器全局 (例如 window 和 document) 和 Node.js 环境。
  */
 
-// TODO  这边还不能用
+// BUG  这边还不能用
 // FIXME  preload 里面使用require nodeIntegration需要设置成true
 /**
  *     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
-      nodeIntegration:false ,
-      contextIsolation:false
+      nodeIntegration:true ,
  */
-// BUG 
 const fs =require("fs");
 const path =require('path')
+console.log(fs);
+console.log(path);
 
 
 //暴漏api对象给js文件
@@ -32,7 +32,7 @@ contextBridge.exposeInMainWorld(
     "api", {
        'platform':process.platform,
         setTitle: (title) => ipcRenderer.send('set-title', title),
-        openFile: () => ipcRenderer.invoke('dialog:openFile')
+        openFile: () => ipcRenderer.invoke('dialog:openFile'),
     }
 );
 
@@ -56,4 +56,20 @@ window.addEventListener('DOMContentLoaded', () => {
     要将此脚本附加到渲染器流程，请在你现有的 BrowserWindow 构造器中将路径中的预加载脚本传入 webPreferences.preload 选项。
    */
 
+// Electron 中的消息端口
 
+// MessagePorts are created in pairs. 连接的一对消息端口
+// 被称为通道。
+const channel = new MessageChannel()
+
+// port1 和 port2 之间唯一的不同是你如何使用它们。 消息
+// 发送到port1 将被port2 接收，反之亦然。
+const port1 = channel.port1
+const port2 = channel.port2
+
+// 允许在另一端还没有注册监听器的情况下就通过通道向其发送消息
+// 消息将排队等待，直到一个监听器注册为止。
+port2.postMessage({ answer: 42 })
+
+// 简单来说就是 注册2个port 一个是发送端port2 一个是接收端 port1 这边是把接受端port1给main 自己拿着发送端port2发消息
+ipcRenderer.postMessage('port', null, [port1])
