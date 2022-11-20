@@ -1,4 +1,4 @@
-const { Menu, ipcMain, BrowserWindow } = require("electron");
+const {app, Menu, ipcMain, BrowserWindow } = require("electron");
 
 const isMac = process.platform === "darwin";
 
@@ -38,12 +38,16 @@ const template = [
               },
             },
             {
-                label: "渲染窗口打开KBJ",
-                click:  () => {
-                  //BUG  这边怎么得到主窗口喃
-                  // window.api.openKBJ()
-                },
+              label: "渲染窗口打开KBJ",
+              click:  () => {
+                //主进场不直接跳转 而是通过渲染进程打开新页面
+                // BrowserWindow.getFocusedWindow().webContents.send("openKbj","https://kbjfree.com/watch/vjaZtQcZwSs")
+
+                //主进程不绕圈子了自己直接跳转
+                BrowserWindow.getFocusedWindow().webContents.loadURL("https://kbjfree.com/watch/vjaZtQcZwSs")
+              
               },
+            },
           ],
         },
       ]),

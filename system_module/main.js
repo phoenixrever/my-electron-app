@@ -27,10 +27,6 @@ const createWindow = () => {
   mainWindow.webContents.openDevTools();
 };
 
-ipcMain.on('openKBJ',()=>{
-  mainWindow.loadURL("https://kbjfree.com/watch/FzHl4vqM0mA");
-})
-
 
 app.whenReady().then(() => {
   createWindow();
