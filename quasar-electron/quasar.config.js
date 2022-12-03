@@ -88,7 +88,11 @@ module.exports = configure(function ( ctx ) {
     //webpack 没用parsed
     //注意不要用文档中的写外面 2个文档都保留 我试了取不到值 有啥都写文件里面好了
     //列
-      // env: require('dotenv').config().parsed,
+      // env: require('dotenv').config(
+      // {
+      //   path:path.dirname+'.env.dev'
+      // }
+      // ).parsed,
 
 
       vueRouterMode: 'history', // available values: 'hash', 'history'
