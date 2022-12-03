@@ -12,7 +12,12 @@
 const { configure } = require('quasar/wrappers');
 const path = require('path');
 
-module.exports = configure(function (/* ctx */) {
+
+
+module.exports = configure(function ( ctx ) {
+
+  // require('dotenv').config().parsed
+
   return {
     eslint: {
       // fix: true,
@@ -60,12 +65,31 @@ module.exports = configure(function (/* ctx */) {
       //alt+/ 提示里面有还支持哪些字体图标
     ],
 
+
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#build
     build: {
       target: {
         browser: [ 'es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1' ],
         node: 'node16'
       },
+
+      //仅仅适用webpack （vite不使用自带的安装dotnv的话也适用）
+      //生产环境和开发环境使用不同的API 地址
+      //记得把ctx参数的注释打开
+      // env: {
+      //   API: ctx.dev
+      //     ? 'https://dev.api.com'
+      //     : 'https://prod.api.com'
+      // },
+
+    //仅仅适用webpack
+    //这个会查找.env文件
+    //默认命令行环境参数会覆盖env文件里面的 反过来的话 require('dotenv').config({ override: true })
+    //webpack 没用parsed
+    //注意不要用文档中的写外面 2个文档都保留 我试了取不到值 有啥都写文件里面好了
+    //列
+      // env: require('dotenv').config().parsed,
+
 
       vueRouterMode: 'history', // available values: 'hash', 'history'
       // vueRouterBase,
@@ -84,7 +108,10 @@ module.exports = configure(function (/* ctx */) {
       // distDir
 
       //扩展vite配置
-      // extendViteConf (viteConf) {},
+      extendViteConf (viteConf) {
+        //env 默认前缀VITE_
+        viteConf.envPrefix="V_"
+      },
 
       // viteVuePluginOptions: {},
 

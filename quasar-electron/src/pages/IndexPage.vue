@@ -18,6 +18,8 @@
       <div>div1</div>
       <div>div2</div>
       <div>div3</div>
+
+      <div></div>
     </div>
 
     <q-btn class="q-mt-lg" color="deep-orange" glossy label="Deep Orange" @click="$router.push('/icon')"/>
@@ -28,6 +30,19 @@
 import { ref, defineComponent ,onMounted,nextTick} from 'vue';
 import {useRouter} from 'vue-router'
 import { useQuasar } from 'quasar';
+
+// webpack 注意 webpack 不要打印process.env 会有安全问题 会报错
+// console.log(process.env);
+
+// console.log('env文件中：',process.env.USERNAME);
+// console.log('env文件中：',process.env.SECURT);
+
+
+//vite
+console.log(import.meta.env);
+
+// console.log('env文件中：',process.env.USERNAME);
+// console.log('env文件中：',process.env.SECURT);
 
 const $router=useRouter();
 
